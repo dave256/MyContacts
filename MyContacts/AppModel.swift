@@ -36,6 +36,16 @@ final class AppModel: ObservableObject {
         self.contacts.insertInSortedOrder(contact)
     }
 
+    /// update value of existing contact
+    ///
+    /// note the id never changes so we use the id key to find the appropriate contact to update
+    /// - Parameter contact: contact with values to save
+    func updateExistingContact(_ contact: Contact) {
+        contacts[id: contact.id] = contact
+        // sort since name may have changed
+        contacts.sort()
+    }
+
     /// removes contacts at specified indices (for use with ForEach .onDelete in a View )
     /// - Parameter offsets: indices of contacts to delete
     func removeContacts(at offsets: IndexSet) {
