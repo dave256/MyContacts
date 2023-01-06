@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		030DF27129689C4E00981245 /* SwiftUIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF27029689C4E00981245 /* SwiftUIHelpers.swift */; };
 		030DF27329689D3400981245 /* EqualWidthStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF27229689D3400981245 /* EqualWidthStacks.swift */; };
+		030DF2752968AB0300981245 /* AddContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF2742968AB0300981245 /* AddContact.swift */; };
 		0366D129296886BC00C79813 /* MyContactsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D128296886BC00C79813 /* MyContactsApp.swift */; };
 		0366D12B296886BC00C79813 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D12A296886BC00C79813 /* ContentView.swift */; };
 		0366D12D296886BC00C79813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0366D12C296886BC00C79813 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		030DF27029689C4E00981245 /* SwiftUIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIHelpers.swift; sourceTree = "<group>"; };
 		030DF27229689D3400981245 /* EqualWidthStacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualWidthStacks.swift; sourceTree = "<group>"; };
+		030DF2742968AB0300981245 /* AddContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContact.swift; sourceTree = "<group>"; };
 		0366D125296886BC00C79813 /* MyContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0366D128296886BC00C79813 /* MyContactsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContactsApp.swift; sourceTree = "<group>"; };
 		0366D12A296886BC00C79813 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				0366D1692968962800C79813 /* Extensions.swift */,
 				030DF27029689C4E00981245 /* SwiftUIHelpers.swift */,
 				030DF27229689D3400981245 /* EqualWidthStacks.swift */,
+				030DF2742968AB0300981245 /* AddContact.swift */,
 			);
 			path = MyContacts;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			files = (
 				0366D16229688D0900C79813 /* ContactCell.swift in Sources */,
 				0366D16A2968962800C79813 /* Extensions.swift in Sources */,
+				030DF2752968AB0300981245 /* AddContact.swift in Sources */,
 				0366D168296893F100C79813 /* AppModel.swift in Sources */,
 				030DF27329689D3400981245 /* EqualWidthStacks.swift in Sources */,
 				0366D1602968889B00C79813 /* Contact.swift in Sources */,
