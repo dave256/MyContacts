@@ -8,6 +8,16 @@
 import SwiftUI
 import IdentifiedCollections
 
+// demo a technique for multiple destinations
+// using an enum with associated values
+// in this app, we are only navigation to a Contact type so only one case
+// the stored values in the NavigationStack must be Hashable so make the
+// enum Hashable (which means all the associated values - Contact) must
+// be equatable and hashable to get the automatic conformance
+enum NavPathCase: Equatable, Hashable {
+    case contact(Contact)
+}
+
 /// model object for storing the app's data
 final class AppModel: ObservableObject {
     // mark fields @Publishable so that changes in their values cause view to redraw
@@ -15,12 +25,15 @@ final class AppModel: ObservableObject {
     // the list of contacts; try to load from JSON file
     @Published var contacts: IdentifiedArrayOf<Contact> = loadContacts()
 
+    @Published var navPath: [NavPathCase]
+
     /// 
     /// - Parameter contacts: if contacts is not empty, it overwrites contacts that were potentially loaded from JSON file
-    init(contacts: [Contact] = []) {
+    init(contacts: [Contact] = [], navPath: [NavPathCase] = []) {
         if !contacts.isEmpty {
             self.contacts = IdentifiedArrayOf(uniqueElements: contacts.sorted())
         }
+        self.navPath = navPath
     }
 
     /// get a contact by its id
