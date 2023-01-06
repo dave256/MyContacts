@@ -17,14 +17,17 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(app.contacts) { c in
-                    // make cells all the same height even if some Text's are blank
-                    ContactCell(contact: c)
-                        .foregroundColor(.primary)
-                        .frame(height: cellHeight)
-                        .sharedHeightUsingMax {
-                            cellHeight = $0
-                        }
-                        .padding([.top, .bottom], 2)
+                    // note the value parameter must be hashable
+                    NavigationLink(value: c) {
+                        // make cells all the same height even if some Text's are blank
+                        ContactCell(contact: c)
+                            .foregroundColor(.primary)
+                            .frame(height: cellHeight)
+                            .sharedHeightUsingMax {
+                                cellHeight = $0
+                            }
+                            .padding([.top, .bottom], 2)
+                    }
                 }
                 .onDelete(perform: deleteContacts)
             }
@@ -38,6 +41,12 @@ struct ContentView: View {
                     Image(systemName: "plus")
                 }
             }
+            // the type here (Contact.self) is the type of the c parameter value from the
+            // above NavigationLink(value: c)
+            .navigationDestination(for: Contact.self) { contact in
+                EditContact(contactID: contact.id)
+            }
+            // note: can have multiple .navigationDestination modifiers for different types
         }
         // when set to true, view shows
         // when view is dismissed, variable is automatically set back to false
