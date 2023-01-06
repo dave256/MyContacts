@@ -26,6 +26,7 @@ struct ContentView: View {
                         }
                         .padding([.top, .bottom], 2)
                 }
+                .onDelete(perform: deleteContacts)
             }
             .navigationTitle("Contacts")
             // need a navigation stack to show a toolbar at top of window
@@ -44,6 +45,13 @@ struct ContentView: View {
             AddContact()
         }
     }
+
+    /// called from .onDelete view modifier to the ForEach view for swiping to delete a row
+    /// - Parameter offsets: indices to delete
+    func deleteContacts(at offsets: IndexSet) {
+        app.removeContacts(at: offsets)
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {

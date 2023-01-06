@@ -36,6 +36,12 @@ final class AppModel: ObservableObject {
         self.contacts.insertInSortedOrder(contact)
     }
 
+    /// removes contacts at specified indices (for use with ForEach .onDelete in a View )
+    /// - Parameter offsets: indices of contacts to delete
+    func removeContacts(at offsets: IndexSet) {
+        contacts.remove(atOffsets: offsets)
+    }
+
     /// force contacts to be sorted
     func sortContacts() {
         self.contacts.sort()
