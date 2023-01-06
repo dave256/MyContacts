@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var app: AppModel
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(app.contacts) { c in
+                    ContactCell(contact: c)
+                }
+            }
+            .navigationTitle("Contacts")
         }
-        .padding()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(AppModel(contacts: .mock))
     }
 }
