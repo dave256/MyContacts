@@ -19,6 +19,7 @@
 		0366D1602968889B00C79813 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D15F2968889B00C79813 /* Contact.swift */; };
 		0366D16229688D0900C79813 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D16129688D0900C79813 /* ContactCell.swift */; };
 		0366D16429688DC900C79813 /* ContactForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D16329688DC800C79813 /* ContactForm.swift */; };
+		0366D16A2968962800C79813 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D1692968962800C79813 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		0366D15F2968889B00C79813 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		0366D16129688D0900C79813 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		0366D16329688DC800C79813 /* ContactForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactForm.swift; sourceTree = "<group>"; };
+		0366D1692968962800C79813 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				0366D15F2968889B00C79813 /* Contact.swift */,
 				0366D16129688D0900C79813 /* ContactCell.swift */,
 				0366D16329688DC800C79813 /* ContactForm.swift */,
+				0366D1692968962800C79813 /* Extensions.swift */,
 			);
 			path = MyContacts;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0366D16229688D0900C79813 /* ContactCell.swift in Sources */,
+				0366D16A2968962800C79813 /* Extensions.swift in Sources */,
 				0366D1602968889B00C79813 /* Contact.swift in Sources */,
 				0366D12B296886BC00C79813 /* ContentView.swift in Sources */,
 				0366D129296886BC00C79813 /* MyContactsApp.swift in Sources */,
