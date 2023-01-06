@@ -14,11 +14,11 @@ struct ContentView: View {
     @State private var isShowingAddContact = false
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $app.navPath) {
             List {
                 ForEach(app.contacts) { c in
                     // note the value parameter must be hashable
-                    NavigationLink(value: c) {
+                    NavigationLink(value: NavPathCase.contact(c)) {
                         // make cells all the same height even if some Text's are blank
                         ContactCell(contact: c)
                             .foregroundColor(.primary)
@@ -41,10 +41,13 @@ struct ContentView: View {
                     Image(systemName: "plus")
                 }
             }
-            // the type here (Contact.self) is the type of the c parameter value from the
-            // above NavigationLink(value: c)
-            .navigationDestination(for: Contact.self) { contact in
-                EditContact(contactID: contact.id)
+            // now we can use enum's potential mutliple cases to go to different destinations
+            .navigationDestination(for: NavPathCase.self) { navItem in
+                switch navItem {
+                    // if it's the contact case of the enum use its associated value to get the contact
+                case let .contact(c):
+                    EditContact(contactID: c.id)
+                }
             }
             // note: can have multiple .navigationDestination modifiers for different types
         }
