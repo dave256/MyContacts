@@ -67,8 +67,33 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+
+    struct Preview: View {
+        // note it is important that the .mock array sent to contacts
+        // contains constants so we can set the navPath to include a contact
+        // (.jane in this case) matching the id of one of the elements in the array
+        //
+        // this is useful for testing so don't need to keep navigation to view we want to test
+        // also useful for deeplinking to a screen in app (think of clicking on a URL that opens a specific view in this app)
+        //
+        // could also be useful for state restoration
+        // it may not work in this case since the id's are not stable across app launches
+        //
+        @StateObject private var appModel = AppModel(
+            contacts: .mock, navPath: [.contact(.jane)])
+
+        // note we could also put the path in a situation not reachable by running it directly
+        // by putting two contacts on the navigation stack
+//        @State private var appModel = AppModel(
+//            contacts: .mock, navPath: [.contact(.jane), .contact(.george)])
+
+        var body: some View {
+            ContentView()
+                .environmentObject(appModel)
+        }
+    }
+    
     static var previews: some View {
-        ContentView()
-            .environmentObject(AppModel(contacts: .mock))
+        Preview()
     }
 }
