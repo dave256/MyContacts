@@ -37,18 +37,6 @@ struct EditContact: View {
                 EditContactForm(contact: $draftContact, startingFocus: .first)
                 // hide the back button when editing and force to use Cancel or Done first
                     .navigationBarBackButtonHidden()
-                    .onAppear {
-                        // when editing view appears get contact data to show from source of truth
-                        draftContact = appContact
-                    }
-                    .onDisappear {
-                        // when editing view disappears
-                        // update app source of truth
-                        // note because we disabled the back button and there is no other
-                        // navigation from this view, only way for view to disappear is
-                        // to stop editing
-                        app.updateExistingContact(draftContact)
-                    }
             }
         }
         // this view needs to be shown in a navigation stack for toolbar to be visible
@@ -69,6 +57,13 @@ struct EditContact: View {
             ToolbarItem(placement: .confirmationAction) {
                 // choose appropriate label based on state
                 Button(isEditing ? "Done": "Edit") {
+                    if isEditing {
+                        // if we were editing, update the actual contact
+                        app.updateExistingContact(draftContact)
+                    } else {
+                        // start editing with existing contact
+                        draftContact = appContact
+                    }
                     isEditing.toggle()
                 }
             }
