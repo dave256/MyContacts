@@ -45,8 +45,13 @@ struct EditContact: View {
             if isEditing {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .cancel) {
-                        draftContact = app.contact(id: contactID) ?? .blank
                         isEditing.toggle()
+                        Task {
+                            // to be safe, wait for TextField to resign focus and save to draftContact
+                            // then can overwrite draftContact with data from app
+                            _ = try? await Task.sleep(nanoseconds: 300 * NSEC_PER_MSEC)
+                            draftContact = app.contact(id: contactID) ?? .blank
+                        }
                     }
                     // when no changes disable so not really visible
                     .disabled(!hasChanges)
