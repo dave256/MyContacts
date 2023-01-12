@@ -11,7 +11,7 @@ import SwiftUI
 struct MyContactsApp: App {
 
     // initial model
-    @StateObject private var app = AppModel()
+    @StateObject private var app = AppModel.deepLink
 
     // can re-insert these anytime we want to start fresh with the mock data
     // and then onece put app in background, they will save and could comment out again
