@@ -90,6 +90,7 @@ extension EditContactModel: Equatable, Hashable {
 struct EditContact: View {
     /// the EditContactModel complete controls the state and responds to the changes
     @ObservedObject var model: EditContactModel
+    @EnvironmentObject var app: AppModel
 
     var body: some View {
         VStack {
@@ -123,6 +124,19 @@ struct EditContact: View {
                 // choose appropriate label based on state
                 Button(model.isEditing ? "Done": "Edit") {
                     model.editButtonPressed()
+                    if !model.isEditing {
+                        Task {
+                            // sleep seems necessary to prevent view/data corruption; it lets animation
+                            // from EditContactForm to ContactForm complete first
+                            let _ = try? await Task.sleep(nanoseconds: 200 * NSEC_PER_MSEC)
+                            // now when done editing, automatically go back to previous view on navigation stack
+                            if app.navPath.count > 0 {
+                                app.navPath.removeLast()
+                            }
+                            // might be cleaner to ask the parent model to return to its view since it might be more
+                            // likely to know whether this view came from a sheet or navigation stack push
+                        }
+                    }
                 }
             }
         }
@@ -132,8 +146,10 @@ struct EditContact: View {
 struct EditContact_Previews: PreviewProvider {
 
     static var previews: some View {
+        let app = AppModel()
         NavigationStack {
             EditContact(model: EditContactModel(contact: .mock, isEditing: true))
+                .environmentObject(app)
         }
     }
 }
