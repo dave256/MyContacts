@@ -16,15 +16,21 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(app.contacts) { c in
+                ForEach($app.contacts) { $c in
                     // make cells all the same height even if some Text's are blank
-                    ContactCell(contact: c)
-                        .foregroundColor(.primary)
-                        .frame(height: cellHeight)
-                        .sharedHeightUsingMax {
-                            cellHeight = $0
-                        }
-                        .padding([.top, .bottom], 2)
+                    NavigationLink {
+                        EditContactForm(contact: $c, startingFocus: .first)
+                    } label: {
+                        ContactCell(contact: c)
+                            .foregroundColor(.primary)
+                            .frame(height: cellHeight)
+                            .sharedHeightUsingMax {
+                                cellHeight = $0
+                            }
+                            .padding([.top, .bottom], 2)
+                    }
+
+
                 }
                 .onDelete(perform: deleteContacts)
             }
