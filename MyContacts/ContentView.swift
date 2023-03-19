@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUINavigation
 
 struct ContentView: View {
     @EnvironmentObject var app: AppModel
@@ -17,8 +18,9 @@ struct ContentView: View {
         NavigationStack(path: $app.navPath) {
             List {
                 ForEach(app.contacts) { c in
-                    // note the value parameter must be hashable
-                    NavigationLink(value: NavPathCase.contact(c)) {
+                    Button {
+                        app.destination = .contact(EditContactModel(parentModel: app, contact: c))
+                    } label: {
                         // make cells all the same height even if some Text's are blank
                         ContactCell(contact: c)
                             .foregroundColor(.primary)
@@ -26,7 +28,7 @@ struct ContentView: View {
                             .sharedHeightUsingMax {
                                 cellHeight = $0
                             }
-                            .padding([.top, .bottom], 2)
+                        .padding([.top, .bottom], 2)
                     }
                 }
                 .onDelete(perform: deleteContacts)
@@ -35,26 +37,19 @@ struct ContentView: View {
             // need a navigation stack to show a toolbar at top of window
             .toolbar {
                 Button {
-                    isShowingAddContact = true
+                    app.destination = .add
                 } label: {
                     // see SF Symbols Mac app for various system images you can use
                     Image(systemName: "plus")
                 }
             }
-            // now we can use enum's potential mutliple cases to go to different destinations
-            .navigationDestination(for: NavPathCase.self) { navItem in
-                switch navItem {
-                    // if it's the contact case of the enum use its associated value to get the contact
-                case let .contact(c):
-                    EditContact(contactID: c.id)
-                }
+            .sheet(unwrapping: $app.destination, case: /AppModel.Destination.add) { _ in
+                AddContact()
             }
-            // note: can have multiple .navigationDestination modifiers for different types
-        }
-        // when set to true, view shows
-        // when view is dismissed, variable is automatically set back to false
-        .sheet(isPresented: $isShowingAddContact) {
-            AddContact()
+            .navigationDestination(unwrapping: $app.destination, case: /AppModel.Destination.contact) { $model in
+                EditContact(model: model)
+            }
+
         }
     }
 
@@ -69,23 +64,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
 
     struct Preview: View {
-        // note it is important that the .mock array sent to contacts
-        // contains constants so we can set the navPath to include a contact
-        // (.jane in this case) matching the id of one of the elements in the array
-        //
-        // this is useful for testing so don't need to keep navigation to view we want to test
-        // also useful for deeplinking to a screen in app (think of clicking on a URL that opens a specific view in this app)
-        //
-        // could also be useful for state restoration
-        // it may not work in this case since the id's are not stable across app launches
-        //
-        @StateObject private var appModel = AppModel(
-            contacts: .mock, navPath: [.contact(.jane)])
-
-        // note we could also put the path in a situation not reachable by running it directly
-        // by putting two contacts on the navigation stack
-//        @State private var appModel = AppModel(
-//            contacts: .mock, navPath: [.contact(.jane), .contact(.george)])
+        // for previwing, use a deep link
+        @StateObject private var appModel = AppModel.deepLink
 
         var body: some View {
             ContentView()

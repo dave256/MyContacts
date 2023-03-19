@@ -22,20 +22,16 @@ struct ContactForm: View {
 
 struct EditContactForm: View {
     @Binding var contact: Contact
-    let startingFocus: Field?
+    let startingFocus: EditContactModel.Field?
 
-    init(contact: Binding<Contact>, startingFocus: Field? = nil) {
+    init(contact: Binding<Contact>, startingFocus: EditContactModel.Field? = nil) {
         // note how to initialize a binding with leading underscore
         self._contact = contact
         self.startingFocus = startingFocus
     }
 
     // use @FocusState wrapper for setting focus - see TextField modifiers below
-    @FocusState var focus: Field?
-
-    enum Field: Hashable {
-        case first, last, email, phone
-    }
+    @FocusState var focus: EditContactModel.Field?
 
     var body: some View {
         Form {

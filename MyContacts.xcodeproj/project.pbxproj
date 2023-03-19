@@ -18,13 +18,12 @@
 		0366D13A296886BC00C79813 /* MyContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D139296886BC00C79813 /* MyContactsTests.swift */; };
 		0366D1542968873D00C79813 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 0366D1532968873D00C79813 /* Tagged */; };
 		0366D1572968874F00C79813 /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 0366D1562968874F00C79813 /* IdentifiedCollections */; };
-		0366D15A2968876300C79813 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 0366D1592968876300C79813 /* SwiftUINavigation */; };
-		0366D15C2968876300C79813 /* _SwiftUINavigationState in Frameworks */ = {isa = PBXBuildFile; productRef = 0366D15B2968876300C79813 /* _SwiftUINavigationState */; };
 		0366D1602968889B00C79813 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D15F2968889B00C79813 /* Contact.swift */; };
 		0366D16229688D0900C79813 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D16129688D0900C79813 /* ContactCell.swift */; };
 		0366D16429688DC900C79813 /* ContactForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D16329688DC800C79813 /* ContactForm.swift */; };
 		0366D168296893F100C79813 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D167296893F100C79813 /* AppModel.swift */; };
 		0366D16A2968962800C79813 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0366D1692968962800C79813 /* Extensions.swift */; };
+		03E1D0BE29C7849A00FAED4A /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 03E1D0BD29C7849A00FAED4A /* SwiftUINavigation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +62,7 @@
 			files = (
 				0366D1542968873D00C79813 /* Tagged in Frameworks */,
 				0366D1572968874F00C79813 /* IdentifiedCollections in Frameworks */,
-				0366D15C2968876300C79813 /* _SwiftUINavigationState in Frameworks */,
-				0366D15A2968876300C79813 /* SwiftUINavigation in Frameworks */,
+				03E1D0BE29C7849A00FAED4A /* SwiftUINavigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +149,7 @@
 			packageProductDependencies = (
 				0366D1532968873D00C79813 /* Tagged */,
 				0366D1562968874F00C79813 /* IdentifiedCollections */,
-				0366D1592968876300C79813 /* SwiftUINavigation */,
-				0366D15B2968876300C79813 /* _SwiftUINavigationState */,
+				03E1D0BD29C7849A00FAED4A /* SwiftUINavigation */,
 			);
 			productName = MyContacts;
 			productReference = 0366D125296886BC00C79813 /* MyContacts.app */;
@@ -207,7 +204,7 @@
 			packageReferences = (
 				0366D1522968873D00C79813 /* XCRemoteSwiftPackageReference "swift-tagged" */,
 				0366D1552968874F00C79813 /* XCRemoteSwiftPackageReference "swift-identified-collections" */,
-				0366D1582968876300C79813 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
+				03E1D0BC29C7849A00FAED4A /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
 			);
 			productRefGroup = 0366D126296886BC00C79813 /* Products */;
 			projectDirPath = "";
@@ -537,7 +534,7 @@
 				minimumVersion = 0.5.0;
 			};
 		};
-		0366D1582968876300C79813 /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
+		03E1D0BC29C7849A00FAED4A /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation.git";
 			requirement = {
@@ -558,15 +555,10 @@
 			package = 0366D1552968874F00C79813 /* XCRemoteSwiftPackageReference "swift-identified-collections" */;
 			productName = IdentifiedCollections;
 		};
-		0366D1592968876300C79813 /* SwiftUINavigation */ = {
+		03E1D0BD29C7849A00FAED4A /* SwiftUINavigation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0366D1582968876300C79813 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			package = 03E1D0BC29C7849A00FAED4A /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
 			productName = SwiftUINavigation;
-		};
-		0366D15B2968876300C79813 /* _SwiftUINavigationState */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0366D1582968876300C79813 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
-			productName = _SwiftUINavigationState;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

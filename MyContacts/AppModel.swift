@@ -12,28 +12,50 @@ import IdentifiedCollections
 // using an enum with associated values
 // in this app, we are only navigation to a Contact type so only one case
 // the stored values in the NavigationStack must be Hashable so make the
-// enum Hashable (which means all the associated values - Contact) must
+// enum Hashable (which means all the associated values - EditContactModel) must
 // be equatable and hashable to get the automatic conformance
 enum NavPathCase: Equatable, Hashable {
-    case contact(Contact)
+    case contact(EditContactModel)
+}
+
+/// protocol so can store a ContactSaver object in pushed NavigationStack views so they can save the changes they make
+@MainActor
+protocol ContactSaver: AnyObject {
+    func updateExistingContact(_ contact: Contact)
 }
 
 /// model object for storing the app's data
-final class AppModel: ObservableObject {
+final class AppModel: ObservableObject, ContactSaver {
+
+    enum Destination {
+        case add
+        case contact(EditContactModel)
+    }
+
     // mark fields @Publishable so that changes in their values cause view to redraw
+    @Published var contacts: IdentifiedArrayOf<Contact>
 
-    // the list of contacts; try to load from JSON file
-    @Published var contacts: IdentifiedArrayOf<Contact> = loadContacts()
+    @Published var destination: Destination?
 
-    @Published var navPath: [NavPathCase]
+    @Published var navPath: [NavPathCase] = []
 
-    /// 
-    /// - Parameter contacts: if contacts is not empty, it overwrites contacts that were potentially loaded from JSON file
-    init(contacts: [Contact] = [], navPath: [NavPathCase] = []) {
-        if !contacts.isEmpty {
+
+    ///
+    /// - Parameters:
+    ///   - contacts: optional array to initialize with for testing
+    ///   - destination: optional destination for deep linking
+    init(contacts: [Contact]? = nil, destination: Destination? = nil) {
+        if let contacts {
             self.contacts = IdentifiedArrayOf(uniqueElements: contacts.sorted())
+        } else {
+            // if none provided, try to load from file
+            self.contacts = loadContacts()
+            #warning("for testing, if no contacts, use mock data")
+            if self.contacts.isEmpty {
+                self.contacts = IdentifiedArrayOf(uniqueElements: [Contact].mock.sorted())
+            }
         }
-        self.navPath = navPath
+        self.destination = destination
     }
 
     /// get a contact by its id
@@ -49,7 +71,7 @@ final class AppModel: ObservableObject {
         self.contacts.insertInSortedOrder(contact)
     }
 
-    /// update value of existing contact
+    /// update value of existing contact (gives ContactSaver conformance)
     ///
     /// note the id never changes so we use the id key to find the appropriate contact to update
     /// - Parameter contact: contact with values to save
@@ -84,6 +106,18 @@ final class AppModel: ObservableObject {
                 }
             }
         }
+    }
+}
+
+extension AppModel {
+    // a version that deep links into navigation stack; useful for previews and while testing
+    static var deepLink: AppModel {
+        let contacts = Contact.mockArray
+        let c = contacts[0]
+        let app = AppModel(contacts: contacts)
+        let editModel = EditContactModel(parentModel: app, destination: .edit(.first), contact: c)
+        app.destination = .contact(editModel)
+        return app
     }
 }
 
