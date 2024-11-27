@@ -85,20 +85,19 @@ final class AppModel: ObservableObject {
             }
         }
     }
-}
 
-// standalone function so can call when declaring contacts instance variable in AppModel class
-func loadContacts() -> IdentifiedArrayOf<Contact> {
-    let fm = FileManager()
-    if let url = fm.urls(for: .documentDirectory, in: .userDomainMask).last {
-        let dataURL = url.appendingPathComponent("contacts.json")
-        if let data = try? Data(contentsOf: dataURL) {
-            let decoder = JSONDecoder()
-            if let contacts = try? decoder.decode([Contact].self, from: data) {
-                return IdentifiedArrayOf(uniqueElements: contacts.sorted())
+    static func loadContacts() -> IdentifiedArrayOf<Contact> {
+        let fm = FileManager()
+        if let url = fm.urls(for: .documentDirectory, in: .userDomainMask).last {
+            let dataURL = url.appendingPathComponent("contacts.json")
+            if let data = try? Data(contentsOf: dataURL) {
+                let decoder = JSONDecoder()
+                if let contacts = try? decoder.decode([Contact].self, from: data) {
+                    return IdentifiedArrayOf(uniqueElements: contacts.sorted())
+                }
             }
         }
+        // return empty array if failed to load (will automatically convert literal to an IdentifiedArrayOf)
+        return []
     }
-    // return empty array if failed to load (will automatically convert literal to an IdentifiedArrayOf)
-    return []
 }

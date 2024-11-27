@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContactCell: View {
-
-    var contact: Contact
-
+    
+    let contact: Contact
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(contact.fullName)
